@@ -15,11 +15,11 @@ RUN apt-get -y upgrade
 
 # Basic Requirements
 RUN apt-get -y install pwgen python-setuptools curl git nano sudo unzip openssh-server
-RUN apt-get -y install mysql-server mysql-client nginx php-fpm php-mysql
+RUN apt-get -y install mysql-server nginx php-fpm php-mysql
 
 # Wordpress Requirements
-php-mbstring php-bcmath php-zip php-mcrypt php-cli php-mcrypt php-curl php-gd php-intl php-xsl
 
+RUN apt-get -y install php-imagick php-intl php-curl php-xsl php-mcrypt php-mbstring php-bcmath php-gd php-zip php-pdo-mysql
 # mysql config
 RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/explicit_defaults_for_timestamp = true\nbind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf
 
@@ -49,10 +49,10 @@ ADD ./supervisord.conf /etc/supervisord.conf
 RUN useradd -m -d /home/magento -p $(openssl passwd -1 'magento') -G root -s /bin/bash magento \
     && usermod -a -G www-data magento \
     && usermod -a -G sudo magento \
+    && mkdir /usr/share/nginx/www \
+    && chown -R magento:www-data /usr/share/nginx/www \
+    && chmod -R 775 /usr/share/nginx/www \
     && ln -s /usr/share/nginx/www /home/magento/www
-
-RUN chown -R magento:www-data /usr/share/nginx/www \
-    && chmod -R 775 /usr/share/nginx/www
 
 # Wordpress Initialization and Startup Script
 ADD ./start.sh /start.sh
