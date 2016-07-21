@@ -19,7 +19,7 @@ RUN apt-get -y install mysql-server nginx php-fpm php-mysql
 
 # Wordpress Requirements
 
-RUN apt-get -y install php-imagick php-intl php-curl php-xsl php-mcrypt php-mbstring php-bcmath php-gd php-zip php-pdo-mysql
+RUN apt-get -y install php-imagick php-intl php-curl php-xsl php-mcrypt php-mbstring php-bcmath php-gd php-zip
 # mysql config
 RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/explicit_defaults_for_timestamp = true\nbind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf
 
@@ -39,6 +39,11 @@ RUN sed -i -e "s/user\s*=\s*www-data/user = magento/g" /etc/php/7.0/fpm/pool.d/w
 
 # nginx site conf
 ADD ./nginx-site.conf /etc/nginx/sites-available/default
+
+# Install composer and modman
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sSL https://raw.github.com/colinmollenhour/modman/master/modman > /usr/sbin/modman
+RUN chmod +x /usr/sbin/modman
 
 # Supervisor Config
 RUN /usr/bin/easy_install supervisor
