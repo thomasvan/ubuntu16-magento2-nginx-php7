@@ -5,12 +5,16 @@ if [ ! -f /magento-db-pw.txt ]; then
     sleep 10s
     # Here we generate random passwords (thank you pwgen!). The first two are for mysql users, the last batch for random keys in wp-config.php
     MYSQL_PASSWORD=`pwgen -c -n -1 12`
+    MAGENTO_DB_PASSWORD=`pwgen -c -n -1 12`
     MAGENTO_PASSWORD=`pwgen -c -n -1 12`
+    echo "magento:$MAGENTO_PASSWORD" | chpasswd
     #This is so the passwords show up in logs.
-    echo mysql root password: $MYSQL_PASSWORD
     echo magento password: $MAGENTO_PASSWORD
+    echo mysql root password: $MYSQL_PASSWORD
+    echo mysql magento db password: $MAGENTO_DB_PASSWORD
     echo $MYSQL_PASSWORD > /mysql-root-pw.txt
-    echo $MAGENTO_PASSWORD > /magento-db-pw.txt
+    echo $MAGENTO_DB_PASSWORD > /magento-db-pw.txt
+    echo $MAGENTO_PASSWORD > /magento-pw.txt
 
     mysqladmin -u root password $MYSQL_PASSWORD
     mysql -uroot -p$MYSQL_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '$MYSQL_PASSWORD' WITH GRANT OPTION; FLUSH PRIVILEGES;"

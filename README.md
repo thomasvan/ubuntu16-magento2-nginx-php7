@@ -30,7 +30,7 @@ $ sudo docker build -t="thomasvan/ubuntu16-magentoce2-nginx-php7-supervisord-ssh
 The -p 80:80 maps the internal docker port 80 to the outside port 80 of the host machine. The other -p sets up sshd on port 2222.
 The -p 9011:9011 is using for supervisord, listing out all services status. 
 ```bash
-$ sudo docker run -p 8080:80 -p 2222:22 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16-magentoce2-nginx-php7-supervisord-ssh:latest
+$ sudo docker run -p 8080:80 -p 4443:443 -p 2222:22 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16-magentoce2-nginx-php7-supervisord-ssh:latest
 ```
 
 Start your newly created container, named *docker-name*.

@@ -66,6 +66,7 @@ ADD ./supervisord.conf /etc/supervisord.conf
 RUN useradd -m -d /home/magento -p $(openssl passwd -1 'magento') -G root -s /bin/bash magento \
     && usermod -a -G www-data magento \
     && usermod -a -G sudo magento \
+    && chage -d 0 magento \
     && mkdir -p /home/magento/files/html \
     && chown -R magento:www-data /home/magento/files \
     && chmod -R 775 /home/magento/files
@@ -77,6 +78,7 @@ RUN chmod 755 /start.sh
 # private expose
 EXPOSE 9011
 EXPOSE 3306
+EXPOSE 443
 EXPOSE 80
 EXPOSE 22
 
