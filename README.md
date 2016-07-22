@@ -29,13 +29,20 @@ $ sudo docker build -t="thomasvan/ubuntu16-magentoce2-nginx-php7-supervisord-ssh
 
 The -p 80:80 maps the internal docker port 80 to the outside port 80 of the host machine. The other -p sets up sshd on port 2222.
 The -p 9011:9011 is using for supervisord, listing out all services status. 
+
 ```bash
-$ sudo docker run -p 8080:80 -p 4443:443 -p 2222:22 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16-magentoce2-nginx-php7-supervisord-ssh:latest
+$ sudo docker run -p 8080:80 -p 2222:22 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16-magentoce2-nginx-php7-supervisord-ssh:latest
 ```
+
+If you want to enable https, please map port 443 as follow:
+```bash
+$ sudo docker run -p 8080:80 -p 443:443 -p 2222:22 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16-magentoce2-nginx-php7-supervisord-ssh:latest
+```
+
 
 Start your newly created container, named *docker-name*.
 
-```
+```bash
 $ sudo docker start docker-name
 ```
 
@@ -44,7 +51,7 @@ After starting the container ubuntu16-magentoce2-nginx-php7-supervisord-ssh chec
 ```
 $ sudo docker ps
 
-3306/tcp, 0.0.0.0:9011->9011/tcp, 0.0.0.0:2222->22/tcp, 0.0.0.0:8080->80/tcp
+0.0.0.0:443->443/tcp, 0.0.0.0:9011->9011/tcp, 3306/tcp, 0.0.0.0:2222->22/tcp, 0.0.0.0:8080->80/tcp
 ```
 
 You can then visit the following URL in a browser on your host machine to get started:
@@ -68,13 +75,14 @@ $ sudo -s
 
 Now that you've got SSH access, you can setup your FTP client the same way, or the SFTP Sublime Text plugin, for easy access to files.
 
-To get the MySQL's password, check the top of the docker container logs for it:
+To get the MySQL's and magento user's password, check the top of the docker container logs for it:
 
 ```
 $ docker logs <container-id>
 ```
 or ssh to your container and view those files:
 ```
+$ cat /magento.txt
 $ cat /magento-db-pw.txt
 $ cat /mysql-root-pw.txt
 ```
