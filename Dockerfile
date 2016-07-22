@@ -54,11 +54,9 @@ ADD ./supervisord.conf /etc/supervisord.conf
 RUN useradd -m -d /home/magento -p $(openssl passwd -1 'magento') -G root -s /bin/bash magento \
     && usermod -a -G www-data magento \
     && usermod -a -G sudo magento \
-    && mkdir /usr/share/nginx/www \
-    && chown -R magento:www-data /usr/share/nginx/www \
-    && chmod -R 775 /usr/share/nginx/www \
-    && ln -s /usr/share/nginx/www /home/magento/www
-
+    && mkdir -p /home/magento/files/html \
+    && chown -R magento:www-data /home/magento/files \
+    && chmod -R 775 /home/magento/files
 # Wordpress Initialization and Startup Script
 ADD ./start.sh /start.sh
 RUN chmod 755 /start.sh
@@ -71,6 +69,6 @@ EXPOSE 80
 EXPOSE 22
 
 # volume for mysql database and magento install
-VOLUME ["/var/lib/mysql", "/usr/share/nginx/www", "/var/run/sshd"]
+VOLUME ["/var/lib/mysql", "/home/magento/files", "/var/run/sshd"]
 
 CMD ["/bin/bash", "/start.sh"]

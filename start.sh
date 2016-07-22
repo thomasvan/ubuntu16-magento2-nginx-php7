@@ -18,12 +18,11 @@ if [ ! -f /magento-db-pw.txt ]; then
     killall mysqld
 fi
 
-if [ ! -f /usr/share/nginx/www/nginx.conf.sample ]; then
+if [ ! -f /home/magento/files/html/nginx.conf.sample ]; then
     MAGENTO_DB="magento"
     MAGENTO_PASSWORD=`cat /magento-db-pw.txt`
-    touch /usr/share/nginx/www/nginx.conf.sample
-    chown -R magento: /usr/share/nginx/www/
-
+    touch /home/magento/files/html/nginx.conf.sample
+    chown -R magento: /home/magento/files/html/
 fi
 
 # start all the services
