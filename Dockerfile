@@ -17,7 +17,7 @@ RUN apt-get -y upgrade
 RUN apt-get -y install pwgen python-setuptools curl git nano sudo unzip openssh-server openssl
 RUN apt-get -y install mysql-server nginx php-fpm php-mysql
 
-# Wordpress Requirements
+# Magento Requirements
 
 RUN apt-get -y install php-imagick php-intl php-curl php-xsl php-mcrypt php-mbstring php-bcmath php-gd php-zip
 # mysql config
@@ -40,6 +40,18 @@ RUN sed -i -e "s/user\s*=\s*www-data/user = magento/g" /etc/php/7.0/fpm/pool.d/w
 # nginx site conf
 ADD ./nginx-site.conf /etc/nginx/sites-available/default
 
+# Generate self-signed ssl cert
+RUN mkdir /etc/nginx/ssl/
+RUN openssl req \
+    -new \
+    -newkey rsa:4096 \
+    -days 365 \
+    -nodes \
+    -x509 \
+    -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=localhost" \
+    -keyout /etc/ssl/private/ssl-cert-snakeoil.key \
+    -out /etc/ssl/certs/ssl-cert-snakeoil.pem
+
 # Install composer and modman
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN curl -sSL https://raw.github.com/colinmollenhour/modman/master/modman > /usr/sbin/modman
@@ -50,14 +62,14 @@ RUN /usr/bin/easy_install supervisor
 RUN /usr/bin/easy_install supervisor-stdout
 ADD ./supervisord.conf /etc/supervisord.conf
 
-# Add system user for Wordpress
+# Add system user for Magento
 RUN useradd -m -d /home/magento -p $(openssl passwd -1 'magento') -G root -s /bin/bash magento \
     && usermod -a -G www-data magento \
     && usermod -a -G sudo magento \
     && mkdir -p /home/magento/files/html \
     && chown -R magento:www-data /home/magento/files \
     && chmod -R 775 /home/magento/files
-# Wordpress Initialization and Startup Script
+# Magento Initialization and Startup Script
 ADD ./start.sh /start.sh
 RUN chmod 755 /start.sh
 

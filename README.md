@@ -68,8 +68,13 @@ $ sudo -s
 
 Now that you've got SSH access, you can setup your FTP client the same way, or the SFTP Sublime Text plugin, for easy access to files.
 
-You can view logs like this:
+To get the MySQL's password, check the top of the docker container logs for it:
 
 ```
-$ sudo docker logs docker-name
+$ docker logs <container-id>
+```
+or ssh to your container and view those files:
+```
+$ cat /magento-db-pw.txt
+$ cat /mysql-root-pw.txt
 ```
