@@ -18,7 +18,7 @@ if [ ! -f /magento-db-pw.txt ]; then
 
     mysqladmin -u root password $MYSQL_PASSWORD
     mysql -uroot -p$MYSQL_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '$MYSQL_PASSWORD' WITH GRANT OPTION; FLUSH PRIVILEGES;"
-    mysql -uroot -p$MYSQL_PASSWORD -e "CREATE DATABASE magento; GRANT ALL PRIVILEGES ON magento.* TO 'magento'@'localhost' IDENTIFIED BY '$MAGENTO_PASSWORD'; FLUSH PRIVILEGES;"
+    mysql -uroot -p$MYSQL_PASSWORD -e "CREATE DATABASE magento; GRANT ALL PRIVILEGES ON magento.* TO 'magento'@'localhost' IDENTIFIED BY '$MAGENTO_DB_PASSWORD'; FLUSH PRIVILEGES;"
     killall mysqld
 fi
 
