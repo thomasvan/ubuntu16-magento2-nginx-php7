@@ -14,7 +14,7 @@ RUN apt-get update
 RUN apt-get -y upgrade
 
 # Basic Requirements
-RUN apt-get -y install pwgen python-setuptools curl git nano sudo unzip openssh-server openssl
+RUN apt-get -y install pwgen python-setuptools curl git nano unzip openssh-server openssl
 RUN apt-get -y install mysql-server nginx php-fpm php-mysql
 
 # Magento Requirements
@@ -51,6 +51,12 @@ RUN openssl req \
     -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=localhost" \
     -keyout /etc/ssl/private/ssl-cert-snakeoil.key \
     -out /etc/ssl/certs/ssl-cert-snakeoil.pem
+
+# Install elasticsearch
+RUN apt-get -y install openjdk-8-jdk
+RUN wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+RUN echo "deb http://packages.elastic.co/elasticsearch/2.x/debian stable main" | tee -a /etc/apt/sources.list.d/Elasticsearch-2.x.list
+RUN apt-get -y update && apt-get -y install elasticsearch
 
 # Install composer and modman
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer

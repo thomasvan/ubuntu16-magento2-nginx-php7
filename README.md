@@ -29,9 +29,10 @@ $ sudo docker build -t="thomasvan/ubuntu16-magentoce2-nginx-php7-supervisord-ssh
 
 The -p 80:80 maps the internal docker port 80 to the outside port 80 of the host machine. The other -p sets up sshd on port 2222.
 The -p 9011:9011 is using for supervisord, listing out all services status. 
+User localhost:9200 for Elastic configuration in Magento Backend
 
 ```bash
-$ sudo docker run -p 8080:80 -p 2222:22 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16-magentoce2-nginx-php7-supervisord-ssh:latest
+$ sudo docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 8080:80 -p 2222:22 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16-magentoce2-nginx-php7-supervisord-ssh:latest
 ```
 
 If you want to enable https, please map port 443 as follow:
@@ -82,7 +83,8 @@ $ docker logs <container-id>
 ```
 or ssh to your container and view those files:
 ```
-$ cat /magento.txt
-$ cat /magento-db-pw.txt
+$ cat /root-pw.txt
+$ cat /magento-pw.txt
 $ cat /mysql-root-pw.txt
+$ cat /magento-db-pw.txt
 ```
