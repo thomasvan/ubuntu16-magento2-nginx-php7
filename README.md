@@ -71,12 +71,12 @@ You can also SSH to your container on 127.0.0.1:2222. The default password is *m
 ```
 $ ssh -p 2222 magento@127.0.0.1
 # To drop into root
-$ sudo -s
+$ su - # then enter the root password
 ```
 
 Now that you've got SSH access, you can setup your FTP client the same way, or the SFTP Sublime Text plugin, for easy access to files.
 
-To get the MySQL's and magento user's password, check the top of the docker container logs for it:
+To get the root, MySQL and magento user's password, check the top of the docker container logs:
 
 ```
 $ docker logs <container-id>
