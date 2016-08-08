@@ -1,6 +1,6 @@
 # ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh
 
-A Dockerfile that installs the latest magento on Ubuntu 16.04 with nginx 1.10.0, php-fpm7.0, php7.0 APC User Cache and openssh. You can also handle the services using supervisord.
+Run the latest magento 2 EE on Ubuntu 16.04 with nginx 1.10.0, php-fpm7.0, elasticsearch and openssh. You can also handle the services using supervisord.
 
 ###Todo:
 
