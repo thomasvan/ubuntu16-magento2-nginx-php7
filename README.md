@@ -1,28 +1,28 @@
-# ubuntu16-magentoce2-nginx-php7-supervisord-ssh
+# ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh
 
 A Dockerfile that installs the latest magento on Ubuntu 16.04 with nginx 1.10.0, php-fpm7.0, php7.0 APC User Cache and openssh. You can also handle the services using supervisord.
 
 ###Todo:
 
-1. If anyone has suggestions please leave a comment on [this GitHub issue](https://github.com/thomasvan/ubuntu16-magentoce2-nginx-php7-supervisord-ssh/issues/2).
+1. If anyone has suggestions please leave a comment on [this GitHub issue](https://github.com/thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh/issues/2).
 2. Implement [Docker Compose](https://docs.docker.com/compose/) for a quicker setup.
 3. Clean up README.
-4. Requests? Just make a comment on [this GitHub issue](https://github.com/thomasvan/ubuntu16-magentoce2-nginx-php7-supervisord-ssh/issues/1) if there's anything you'd like added or changed.
+4. Requests? Just make a comment on [this GitHub issue](https://github.com/thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh/issues/1) if there's anything you'd like added or changed.
 
 ## Installation
 
-The easiest way get up and running with this docker container is to pull the latest stable version from the [Docker Hub Registry](https://hub.docker.com/r/thomasvan/ubuntu16-magentoce2-nginx-php7-supervisord-ssh/):
+The easiest way get up and running with this docker container is to pull the latest stable version from the [Docker Hub Registry](https://hub.docker.com/r/thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh/):
 
 ```bash
-$ docker pull thomasvan/ubuntu16-magentoce2-nginx-php7-supervisord-ssh:latest
+$ docker pull thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh:latest
 ```
 
 If you'd like to build the image yourself:
 
 ```bash
-$ git clone https://github.com/thomasvan/ubuntu16-magentoce2-nginx-php7-supervisord-ssh.git
-$ cd ubuntu16-magentoce2-nginx-php7-supervisord-ssh
-$ sudo docker build -t="thomasvan/ubuntu16-magentoce2-nginx-php7-supervisord-ssh" .
+$ git clone https://github.com/thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh.git
+$ cd ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh
+$ sudo docker build -t="thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh" .
 ```
 
 ## Usage
@@ -32,12 +32,12 @@ The -p 9011:9011 is using for supervisord, listing out all services status.
 User localhost:9200 for Elastic configuration in Magento Backend
 
 ```bash
-$ sudo docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 8080:80 -p 2222:22 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16-magentoce2-nginx-php7-supervisord-ssh:latest
+$ sudo docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 8080:80 -p 2222:22 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh:latest
 ```
 
 If you want to enable https, please map port 443 as follow:
 ```bash
-$ sudo docker run -p 8080:80 -p 443:443 -p 2222:22 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16-magentoce2-nginx-php7-supervisord-ssh:latest
+$ sudo docker run -p 8080:80 -p 443:443 -p 2222:22 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh:latest
 ```
 
 
@@ -47,7 +47,7 @@ Start your newly created container, named *docker-name*.
 $ sudo docker start docker-name
 ```
 
-After starting the container ubuntu16-magentoce2-nginx-php7-supervisord-ssh checks to see if it has started and the port mapping is correct.  This will also report the port mapping between the docker container and the host machine.
+After starting the container ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh checks to see if it has started and the port mapping is correct.  This will also report the port mapping between the docker container and the host machine.
 
 ```
 $ sudo docker ps
