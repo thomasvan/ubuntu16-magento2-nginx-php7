@@ -86,5 +86,6 @@ or ssh to your container and view those files:
 $ cat /root-pw.txt
 $ cat /magento-pw.txt
 $ cat /mysql-root-pw.txt
-$ cat /magento-db-pw.txt
+$ cat /mysql-magento-pw.txt
 ```
+!IMPORTANT! Please restart the nginx in localhost:9011 after magento webroot folder mounted, since the nginx read the configuration from nginx.conf.sample.
