@@ -22,7 +22,7 @@ If you'd like to build the image yourself:
 ```bash
 $ git clone https://github.com/thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh.git
 $ cd ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh
-$ sudo docker build -t="thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh" .
+$ docker build -t="thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh" .
 ```
 
 ## Usage
@@ -32,25 +32,25 @@ The -p 9011:9011 is using for supervisord, listing out all services status.
 User localhost:9200 for Elastic configuration in Magento Backend
 
 ```bash
-$ sudo docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 8080:80 -p 2222:22 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh:latest
+$ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 8080:80 -p 2222:22 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh:latest
 ```
 
 If you want to enable https, please map port 443 as follow:
 ```bash
-$ sudo docker run -p 8080:80 -p 443:443 -p 2222:22 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh:latest
+$ docker run -p 8080:80 -p 443:443 -p 2222:22 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh:latest
 ```
 
 
 Start your newly created container, named *docker-name*.
 
 ```bash
-$ sudo docker start docker-name
+$ docker start docker-name
 ```
 
 After starting the container ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh checks to see if it has started and the port mapping is correct.  This will also report the port mapping between the docker container and the host machine.
 
 ```
-$ sudo docker ps
+$ docker ps
 
 0.0.0.0:443->443/tcp, 0.0.0.0:9011->9011/tcp, 3306/tcp, 0.0.0.0:2222->22/tcp, 0.0.0.0:8080->80/tcp
 ```
