@@ -37,7 +37,7 @@ $ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 8080:80
 
 If you want to enable https, please map port 443 as follow:
 ```bash
-$ docker run -p 8080:80 -p 443:443 -p 2222:22 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh:latest
+$ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 8080:80 -p 443:443 -p 2222:22 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh:latest
 ```
 
 
