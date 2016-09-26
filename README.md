@@ -29,7 +29,8 @@ $ docker build -t="thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-superv
 
 The -p 80:80 maps the internal docker port 80 to the outside port 80 of the host machine. The other -p sets up sshd on port 2222.
 The -p 9011:9011 is using for supervisord, listing out all services status. 
-User localhost:9200 for Elastic configuration in Magento Backend
+Use localhost:9200 for Elastic configuration in Magento Backend
+Use localhost:8983/solr for Apache Solr web interface
 
 ```bash
 $ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 8080:80 -p 2222:22 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh:latest
@@ -52,7 +53,7 @@ After starting the container ubuntu16-magentoee2-nginx-php7-elasticsearch-superv
 ```
 $ docker ps
 
-0.0.0.0:443->443/tcp, 0.0.0.0:9011->9011/tcp, 3306/tcp, 0.0.0.0:2222->22/tcp, 0.0.0.0:8080->80/tcp
+0.0.0.0:8983->8983/tcp, 3306/tcp, 0.0.0.0:9011->9011/tcp, 0.0.0.0:2222->22/tcp, 0.0.0.0:8080->80/tcp, 0.0.0.0:443->443/tcp
 ```
 
 You can then visit the following URL in a browser on your host machine to get started:
@@ -66,17 +67,23 @@ You can start/stop/restart and view the error logs of nginx and php-fpm services
 http://127.0.0.1:9011
 ```
 
-You can also SSH to your container on 127.0.0.1:2222. See below instructions to get magento and root password.
+You can also SSH to your container on 127.0.0.1:2222. See below instructions:
 
 ```
 $ ssh -p 2222 magento@127.0.0.1
 # To drop into root
-$ su - # then enter the root password
+$ sudo -s # then enter `magento` as the password
 ```
 
 Now that you've got SSH access, you can setup your FTP client the same way, or the SFTP Sublime Text plugin, for easy access to files.
 
-To get the root, MySQL and magento user's password, check the top of the docker container logs:
+SSH/SFTP user: magento/magento
+
+MySQL magento user: magento/magento
+
+MySQL root user: root/root
+
+You can also see those information by checking the top of the docker container logs:
 
 ```
 $ docker logs <container-id>
@@ -88,4 +95,5 @@ $ cat /magento-pw.txt
 $ cat /mysql-root-pw.txt
 $ cat /mysql-magento-pw.txt
 ```
+
 !IMPORTANT! Please restart the nginx in localhost:9011 after magento webroot folder mounted, since the nginx read the configuration from nginx.conf.sample.
