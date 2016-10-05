@@ -97,3 +97,4 @@ $ cat /mysql-magento-pw.txt
 ```
 
 !IMPORTANT! Please restart the nginx in localhost:9011 after magento webroot folder mounted, since the nginx read the configuration from nginx.conf.sample.
+

@@ -52,18 +52,6 @@ RUN openssl req \
     -keyout /etc/ssl/private/ssl-cert-snakeoil.key \
     -out /etc/ssl/certs/ssl-cert-snakeoil.pem
 
-# Install elasticsearch
-RUN apt-get -y install openjdk-8-jdk
-RUN wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | apt-key add -
-RUN echo "deb http://packages.elastic.co/elasticsearch/2.x/debian stable main" | tee -a /etc/apt/sources.list.d/Elasticsearch-2.x.list
-RUN apt-get -y update && apt-get -y install elasticsearch
-
-# Install SOLR
-RUN curl --retry 3 https://archive.apache.org/dist/lucene/solr/4.9.1/solr-4.9.1.tgz | tar -C /opt --extract --gzip
-RUN mv /opt/solr-4.9.1 /opt/solr
-RUN useradd --home-dir /opt/solr --comment "Solr Server" solr
-RUN chown -R solr:solr /opt/solr/example
-
 # Install composer and modman
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN curl -sSL https://raw.github.com/colinmollenhour/modman/master/modman > /usr/sbin/modman
@@ -81,6 +69,19 @@ RUN useradd -m -d /home/magento -p $(openssl passwd -1 'magento') -G root -s /bi
     && mkdir -p /home/magento/files/html \
     && chown -R magento:www-data /home/magento/files \
     && chmod -R 775 /home/magento/files
+
+# Install elasticsearch
+RUN apt-get -y install openjdk-8-jdk
+RUN wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+RUN echo "deb http://packages.elastic.co/elasticsearch/2.x/debian stable main" | tee -a /etc/apt/sources.list.d/Elasticsearch-2.x.list
+RUN apt-get -y update && apt-get -y install elasticsearch
+
+# Install SOLR
+RUN curl --retry 3 https://archive.apache.org/dist/lucene/solr/4.9.1/solr-4.9.1.tgz | tar -C /opt --extract --gzip
+RUN mv /opt/solr-4.9.1 /opt/solr
+RUN useradd --home-dir /opt/solr --comment "Solr Server" solr
+RUN chown -R solr:solr /opt/solr/example
+
 # Magento Initialization and Startup Script
 ADD ./start.sh /start.sh
 RUN chmod 755 /start.sh
