@@ -29,8 +29,19 @@ $ docker build -t="thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-superv
 
 The -p 80:80 maps the internal docker port 80 to the outside port 80 of the host machine. The other -p sets up sshd on port 2222.
 The -p 9011:9011 is using for supervisord, listing out all services status. 
-Use localhost:9200 for Elastic configuration in Magento Backend
+Use localhost:9200 for Elastic configuration in Magento Backend. Magento Catalog Search settings should be as below:
+- Search Engine: Elasticsearch
+- Elasticsearch Server Hostname: localhost
+- Elasticsearch Server Port: 9200
+- Elasticsearch Index Prefix: magento2
+- Enable Elasticsearch HTTP Auth: No
+
 Use localhost:8983/solr for Apache Solr web interface
+- Search Engine: Solr
+- Solr Server Hostname: localhost
+- Solr Server Port: 8983
+- Solr Server Username: admin
+- Solr Server Password: <blank>
 
 ```bash
 $ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 8080:80 -p 2222:22 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh:latest
@@ -48,7 +59,7 @@ Start your newly created container, named *docker-name*.
 $ docker start docker-name
 ```
 
-After starting the container ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh checks to see if it has started and the port mapping is correct.  This will also report the port mapping between the docker container and the host machine.
+After starting the container ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh, please check to see if it has started and the port mapping is correct. This will also report the port mapping between the docker container and the host machine.
 
 ```
 $ docker ps
