@@ -1,25 +1,30 @@
 FROM ubuntu:16.04
-MAINTAINER Thomas Van<thomas@forixwebdesign.com>
+MAINTAINER Thomas Van<thomas@forixdigital.com>
 
 # Keep upstart from complaining
 RUN dpkg-divert --local --rename --add /sbin/initctl
 RUN ln -sf /bin/true /sbin/initctl
 RUN mkdir /var/run/sshd
 RUN mkdir /run/php
+RUN mkdir /var/run/mysqld
 
 # Let the conatiner know that there is no tty
 ENV DEBIAN_FRONTEND noninteractive
 
+RUN \
+    apt-get update && \
+    apt-get install -y software-properties-common python-software-properties && \
+    LC_ALL=C.UTF-8 add-apt-repository -y -u ppa:ondrej/php
 RUN apt-get update
 RUN apt-get -y upgrade
 
 # Basic Requirements
-RUN apt-get -y install pwgen python-setuptools curl git nano sudo unzip openssh-server openssl
-RUN apt-get -y install mysql-server nginx php-fpm php-mysql
+RUN apt-get -y install python-setuptools curl git nano sudo unzip openssh-server openssl shellinabox
+RUN apt-get -y install mysql-server nginx php7.1-fpm
 
 # Magento Requirements
 
-RUN apt-get -y install php-imagick php-intl php-curl php-xsl php-mcrypt php-mbstring php-bcmath php-gd php-zip
+RUN apt-get -y install php7.1-xml php7.1-mcrypt php7.1-mbstring php7.1-bcmath php7.1-gd php7.1-zip php7.1-mysql php7.1-curl php7.1-intl php7.1-soap
 # mysql config
 RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/explicit_defaults_for_timestamp = true\nbind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf
 
@@ -30,15 +35,27 @@ RUN sed -i -e"s/keepalive_timeout 2/keepalive_timeout 2;\n\tclient_max_body_size
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 # php-fpm config
-RUN sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php/7.0/fpm/php.ini
-RUN sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 100M/g" /etc/php/7.0/fpm/php.ini
-RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.0/fpm/php-fpm.conf
-RUN sed -i -e "s/;catch_workers_output\s*=\s*yes/catch_workers_output = yes/g" /etc/php/7.0/fpm/pool.d/www.conf
-RUN sed -i -e "s/user\s*=\s*www-data/user = magento/g" /etc/php/7.0/fpm/pool.d/www.conf
-# replace # by ; RUN find /etc/php/7.0/mods-available/tmp -name "*.ini" -exec sed -i -re 's/^(\s*)#(.*)/\1;\2/g' {} \;
+RUN sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php/7.1/fpm/php.ini
+RUN sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 100M/g" /etc/php/7.1/fpm/php.ini
+RUN sed -i -e "s/max_execution_time\s*=\s*30/max_execution_time = 3600/g" /etc/php/7.1/fpm/php.ini
+RUN sed -i -e "s/memory_limit\s*=\s*128M/memory_limit = 2048M/g" /etc/php/7.1/fpm/php.ini
+RUN sed -i -e "s/;\s*max_input_vars\s*=\s*1000/max_input_vars = 36000/g" /etc/php/7.1/fpm/php.ini
+
+RUN sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php/7.1/cli/php.ini
+RUN sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 100M/g" /etc/php/7.1/cli/php.ini
+RUN sed -i -e "s/max_execution_time\s*=\s*30/max_execution_time = 3600/g" /etc/php/7.1/cli/php.ini
+RUN sed -i -e "s/memory_limit\s*=\s*128M/memory_limit = 2048M/g" /etc/php/7.1/cli/php.ini
+RUN sed -i -e "s/;\s*max_input_vars\s*=\s*1000/max_input_vars = 36000/g" /etc/php/7.1/cli/php.ini
+
+RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.1/fpm/php-fpm.conf
+RUN sed -i -e "s/;catch_workers_output\s*=\s*yes/catch_workers_output = yes/g" /etc/php/7.1/fpm/pool.d/www.conf
+RUN sed -i -e "s/user\s*=\s*www-data/user = magento/g" /etc/php/7.1/fpm/pool.d/www.conf
+# replace # by ; RUN find /etc/php/7.1/mods-available/tmp -name "*.ini" -exec sed -i -re 's/^(\s*)#(.*)/\1;\2/g' {} \;
 
 # nginx site conf
 ADD ./nginx-site.conf /etc/nginx/sites-available/default
+RUN mkdir /etc/nginx/magento-conf.d
+ADD ./nginx-magento.conf /etc/nginx/magento-conf.d
 
 # Generate self-signed ssl cert
 RUN mkdir /etc/nginx/ssl/
@@ -67,35 +84,53 @@ RUN useradd -m -d /home/magento -p $(openssl passwd -1 'magento') -G root -s /bi
     && usermod -a -G www-data magento \
     && usermod -a -G sudo magento \
     && mkdir -p /home/magento/files/html \
-    && chown -R magento:www-data /home/magento/files \
+    && chown -R magento: /home/magento/files \
     && chmod -R 775 /home/magento/files
 
-# Install elasticsearch
-RUN apt-get -y install openjdk-8-jdk
-RUN wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | apt-key add -
-RUN echo "deb http://packages.elastic.co/elasticsearch/2.x/debian stable main" | tee -a /etc/apt/sources.list.d/Elasticsearch-2.x.list
-RUN apt-get -y update && apt-get -y install elasticsearch
-
-# Install SOLR
-RUN curl --retry 3 https://archive.apache.org/dist/lucene/solr/4.9.1/solr-4.9.1.tgz | tar -C /opt --extract --gzip
-RUN mv /opt/solr-4.9.1 /opt/solr
-RUN useradd --home-dir /opt/solr --comment "Solr Server" solr
-RUN chown -R solr:solr /opt/solr/example
+# Generate private/public key for "magento" user
+RUN sudo -H -u magento bash -c 'echo -e "\n\n\n" | ssh-keygen -t rsa'
 
 # Magento Initialization and Startup Script
 ADD ./start.sh /start.sh
 RUN chmod 755 /start.sh
+RUN chown mysql:mysql /var/run/mysqld
+
+RUN apt-get update && \
+    apt-get -y install default-jdk && \
+    useradd elasticsearch && \
+    curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.4.tar.gz && \
+    tar -zxf elasticsearch-5.6.4.tar.gz && \
+    mv elasticsearch-5.6.4 /etc/ && \
+    mkdir /etc/elasticsearch-5.6.4/logs && \
+    touch /etc/elasticsearch-5.6.4/logs/elastic4magento.log && \
+    curl -L -O https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-2.4.6.tar.gz && \
+    tar -zxf elasticsearch-2.4.6.tar.gz && \
+    mv elasticsearch-2.4.6 /etc/ && \
+    mkdir /etc/elasticsearch-2.4.6/logs && \
+    touch /etc/elasticsearch-2.4.6/logs/elastic4magento.log && \
+    chown -R elasticsearch /etc/elasticsearch-*
+
+RUN echo "cluster.name: elastic4magento\nnode.name: node-5.x\nnode.master: true\nnode.data: true\ntransport.host: localhost\ntransport.tcp.port: 9302\nhttp.port: 9202\nnetwork.host: 0.0.0.0\nindices.query.bool.max_clause_count: 16384" >> /etc/elasticsearch-5.6.4/config/elasticsearch.yml
+
+RUN echo "cluster.name: elastic4magento\nnode.name: node-2.x\n#node.master: true\nnode.data: true\ntransport.host: localhost\ntransport.tcp.port: 9300\nhttp.port: 9200\nnetwork.host: 0.0.0.0\nindices.query.bool.max_clause_count: 16384" >> /etc/elasticsearch-2.4.6/config/elasticsearch.yml
+
+RUN apt-get update && apt-get -y install redis-server
+RUN sed -i -e "s/daemonize\s*yes/daemonize no/g" /etc/redis/redis.conf
+RUN sed -i -e "s/bind\s*127\.0\.0\.1/bind 0\.0\.0\.0/g" /etc/redis/redis.conf
+RUN echo "maxmemory 1G" >> /etc/redis/redis.conf
 
 #NETWORK PORTS
 # private expose
+EXPOSE 9202
+EXPOSE 9200
 EXPOSE 9011
-EXPOSE 8983
+EXPOSE 6379
+EXPOSE 4200
 EXPOSE 3306
 EXPOSE 443
 EXPOSE 80
 EXPOSE 22
 
 # volume for mysql database and magento install
-VOLUME ["/var/lib/mysql", "/home/magento/files", "/var/run/sshd"]
-
+VOLUME ["/var/lib/mysql", "/home/magento/files"]
 CMD ["/bin/bash", "/start.sh"]

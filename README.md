@@ -1,6 +1,6 @@
 # ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh
 
-Run the latest magento 2 EE on Ubuntu 16.04 with nginx 1.10.0, php-fpm7.0, elasticsearch and openssh. You can also handle the services using supervisord.
+Run the latest magento 2 EE on Ubuntu 16.04 with nginx 1.10.3, php-fpm 7.1, elasticsearch 5.6.4. You can also handle all services using supervisord.
 
 ###Todo:
 
@@ -30,18 +30,11 @@ $ docker build -t="thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-superv
 The -p 80:80 maps the internal docker port 80 to the outside port 80 of the host machine. The other -p sets up sshd on port 2222.
 The -p 9011:9011 is using for supervisord, listing out all services status. 
 Use localhost:9200 for Elastic configuration in Magento Backend. Magento Catalog Search settings should be as below:
-- Search Engine: Elasticsearch
-- Elasticsearch Server Hostname: localhost
-- Elasticsearch Server Port: 9200
-- Elasticsearch Index Prefix: magento2
-- Enable Elasticsearch HTTP Auth: No
-
-Use localhost:8983/solr for Apache Solr web interface
-- Search Engine: Solr
-- Solr Server Hostname: localhost
-- Solr Server Port: 8983
-- Solr Server Username: admin
-- Solr Server Password: <blank>
+- Search Engine: Elastic Search
+- Elastic Search Server Hostname: localhost
+- Elastic Search Server Port: 9200
+- Elastic Search Index Prefix: magento2
+- Enable Elastic Search HTTP Auth: No
 
 ```bash
 $ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 8080:80 -p 2222:22 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16-magentoee2-nginx-php7-elasticsearch-supervisord-ssh:latest
@@ -64,7 +57,7 @@ After starting the container ubuntu16-magentoee2-nginx-php7-elasticsearch-superv
 ```
 $ docker ps
 
-0.0.0.0:8983->8983/tcp, 3306/tcp, 0.0.0.0:9011->9011/tcp, 0.0.0.0:2222->22/tcp, 0.0.0.0:8080->80/tcp, 0.0.0.0:443->443/tcp
+3306/tcp, 0.0.0.0:9011->9011/tcp, 0.0.0.0:2222->22/tcp, 0.0.0.0:8080->80/tcp, 0.0.0.0:443->443/tcp
 ```
 
 You can then visit the following URL in a browser on your host machine to get started:
