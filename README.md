@@ -1,4 +1,4 @@
-# ubuntu16-magento2-nginx-php7.1-2xelasticsearch-redis-and-more
+# ubuntu16.04.4-magento2-nginx-php7.1-2xelasticsearch-mysql-phpmyadmin-redis-composer-modman
 
 Run the latest magento 2 on Ubuntu 16.04.4 LTS, including: 
 - Shell In A Box – A Web-Based SSH Terminal - version 2.19
@@ -9,7 +9,8 @@ Run the latest magento 2 on Ubuntu 16.04.4 LTS, including:
 - mysql version 14.14 Distrib 5.7.22, for Linux (x86_64) 
 - composer version 1.6.5
 - Module Manager version 1.12
-- You can also handle all services using supervisord <container_ip>:9011 or commandline: 
+- You can also handle all services using supervisord 3.3.4 <container_ip>:9011 or commandline: 
+
 ```bash
 magento@c9786d14b245:~/files/html$ sudo supervisorctl 
 BroswerBased-SSH                 RUNNING   pid 421, uptime 3:36:05
@@ -21,24 +22,17 @@ PHP-FPM                          RUNNING   pid 417, uptime 3:36:05
 RedisServer                      RUNNING   pid 2256, uptime 2:57:26
 System-Log                       RUNNING   pid 422, uptime 3:36:05
 ```
+
+
 ## Installation
 
-The easiest way get up and running with this docker container is to pull the latest stable version from the [Docker Hub Registry](https://hub.docker.com/r/thomasvan/ubuntu16-magento2-nginx-php7.1-2xelasticsearch-redis-and-more/):
+The easiest way get up and running with this docker container is to pull the latest stable version from the [Docker Hub Registry](https://hub.docker.com/r/thomasvan/ubuntu16.04.4-magento2-nginx-php7.1-2xelasticsearch-mysql-phpmyadmin-redis-composer-modman/):
 
 ```bash
-$ docker pull thomasvan/ubuntu16-magento2-nginx-php7.1-2xelasticsearch-redis-and-more:latest
-```
-
-If you'd like to build the image yourself:
-
-```bash
-$ git clone https://github.com/thomasvan/ubuntu16-magento2-nginx-php7.1-2xelasticsearch-redis-and-more.git
-$ cd ubuntu16-magento2-nginx-php7.1-2xelasticsearch-redis-and-more
-$ docker build -t="thomasvan/ubuntu16-magento2-nginx-php7.1-2xelasticsearch-redis-and-more" .
+$ docker pull thomasvan/ubuntu16.04.4-magento2-nginx-php7.1-2xelasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
 ```
 
 ## Usage
-
 
 Services and port exposed
 - Shell In A Box – A Web-Based SSH Terminal 2.19 - http://<contaner_ip>:4200
@@ -48,8 +42,9 @@ Services and port exposed
 - Nginx 1.10.3 and php-fpm 7.1 - http://<contaner_ip> and https://<contaner_ip> for web browsing
 
 Sample container initialization: 
+
 ```bash
-$ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 2222:4200 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16-magento2-nginx-php7.1-2xelasticsearch-redis-and-more:latest
+$ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 2222:4200 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16.04.4-magento2-nginx-php7.1-2xelasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
 ```
 
 Start your newly created container, named *docker-name*.
@@ -58,31 +53,24 @@ Start your newly created container, named *docker-name*.
 $ docker start docker-name
 ```
 
-After starting the container ubuntu16-magento2-nginx-php7.1-2xelasticsearch-redis-and-more, please check to see if it has started and the port mapping is correct. This will also report the port mapping between the docker container and the host machine.
+After starting the container ubuntu16.04.4-magento2-nginx-php7.1-2xelasticsearch-mysql-phpmyadmin-redis-composer-modman, please check to see if it has started and the port mapping is correct. This will also report the port mapping between the docker container and the host machine.
 
-```
+```bash
 $ docker ps
 
 0.0.0.0:9011->9011/tcp, 0.0.0.0:2222->4200/tcp
 ```
 
-You can then visit the following URL in a browser on your host machine to get started(account: magento/magento):
+You can then visit the following URL in a browser on your host machine to get started(account: magento/magento): `http://127.0.0.1:2222`
 
-```
-http://127.0.0.1:2222
-```
-
-You can start/stop/restart and view the error logs of nginx and php-fpm services:
-```
-http://127.0.0.1:9011
-```
+You can start/stop/restart and view the error logs of nginx and php-fpm services: `http://127.0.0.1:9011`
 
 And this is the most important part, get the container ip and other information to setup magento there, you could get those by: 
 - Looking into the output as `docker run ...`command run or `docker logs <container-id>`:
 - Using [docker inspect](https://docs.docker.com/engine/reference/commandline/inspect/parent-command) command
 - Check the ~/readme.txt file by using [Web-Based SSH Terminal](http://127.0.0.1:2222)
 
-```
+```bash
 c9786d14b245 login: magento
 Password:
 Last login: Thu Jul 12 06:21:00 UTC 2018 from 172.17.0.1 on pts/1
@@ -103,7 +91,8 @@ DB ROOT User : root/root
 ```
 
 Now as you've got all that information, you can set up magento and access the website via IP Address or creating an alias in [hosts](https://support.rackspace.com/how-to/modify-your-hosts-file/) file
-```
+
+```bash
 c9786d14b245 login: magento
 Password:
 Last login: Thu Jul 12 08:50:07 UTC 2018 from 172.17.0.1 on pts/2
