@@ -7,6 +7,8 @@ Run the latest magento 2 on Ubuntu 16.04.4 LTS, including:
 - elasticsearch 5.6.4 and 2.4.6
 - redis server version 3.0.6 
 - mysql version 14.14 Distrib 5.7.22, for Linux (x86_64) 
+- composer version 1.6.5
+- Module Manager version 1.12
 - You can also handle all services using supervisord <container_ip>:9011 or commandline: 
 ```bash
 magento@c9786d14b245:~/files/html$ sudo supervisorctl 
@@ -19,13 +21,6 @@ PHP-FPM                          RUNNING   pid 417, uptime 3:36:05
 RedisServer                      RUNNING   pid 2256, uptime 2:57:26
 System-Log                       RUNNING   pid 422, uptime 3:36:05
 ```
-###Todo:
-
-1. If anyone has suggestions please leave a comment on [this GitHub issue](https://github.com/thomasvan/ubuntu16-magento2-nginx-php7.1-2xelasticsearch-redis-and-more/issues/2).
-2. Implement [Docker Compose](https://docs.docker.com/compose/) for a quicker setup.
-3. Clean up README.
-4. Requests? Just make a comment on [this GitHub issue](https://github.com/thomasvan/ubuntu16-magento2-nginx-php7.1-2xelasticsearch-redis-and-more/issues/1) if there's anything you'd like added or changed.
-
 ## Installation
 
 The easiest way get up and running with this docker container is to pull the latest stable version from the [Docker Hub Registry](https://hub.docker.com/r/thomasvan/ubuntu16-magento2-nginx-php7.1-2xelasticsearch-redis-and-more/):
