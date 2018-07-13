@@ -30,6 +30,7 @@ The easiest way get up and running with this docker container is to pull the lat
 
 ```bash
 $ docker pull thomasvan/ubuntu16.04.4-magento2-nginx-php7.1-2xelasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
+$ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 2222:4200 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16.04.4-magento2-nginx-php7.1-2xelasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
 ```
 
 ## Usage
@@ -44,13 +45,8 @@ Services and port exposed
 Sample container initialization: 
 
 ```bash
+$ docker pull thomasvan/ubuntu16.04.4-magento2-nginx-php7.1-2xelasticsearch-mysql-phpmyadmin-redis-composer-modman:latests
 $ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 2222:4200 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16.04.4-magento2-nginx-php7.1-2xelasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
-```
-
-Start your newly created container, named *docker-name*.
-
-```bash
-$ docker start docker-name
 ```
 
 After starting the container ubuntu16.04.4-magento2-nginx-php7.1-2xelasticsearch-mysql-phpmyadmin-redis-composer-modman, please check to see if it has started and the port mapping is correct. This will also report the port mapping between the docker container and the host machine.
@@ -65,8 +61,8 @@ You can then visit the following URL in a browser on your host machine to get st
 
 You can start/stop/restart and view the error logs of nginx and php-fpm services: `http://127.0.0.1:9011`
 
-And this is the most important part, get the container ip and other information to setup magento there, you could get those by: 
-- Looking into the output as `docker run ...`command run or `docker logs <container-id>`:
+And this is the most important part, getting the container ip and other information to setup magento there, you could get those by: 
+- Looking into the output of `docker logs <container-id>`:
 - Using [docker inspect](https://docs.docker.com/engine/reference/commandline/inspect/parent-command) command
 - Check the ~/readme.txt file by using [Web-Based SSH Terminal](http://127.0.0.1:2222)
 
