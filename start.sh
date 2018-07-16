@@ -23,7 +23,7 @@ fi
 /usr/local/bin/supervisord -c /etc/supervisord.conf
 
 if [ ! -f /home/magento/readme.txt ]; then
-    echo -e "IP Address\t: `/sbin/ip route|awk '/src/ { print $9 }'`" >> /home/magento/readme.txt
+    echo -e "IP Address\t: `/sbin/ip route|awk '/src/ { print $9 }'` or 10.0.75.x - depends on your Internal Virtual Switch on Linux Container(Docker on Windows)" >> /home/magento/readme.txt
     echo -e "Web Directory\t: /home/magento/files/html" >> /home/magento/readme.txt
     echo -e "SSH/SFTP User\t: magento/magento" >> /home/magento/readme.txt
     echo -e "ROOT User\t: root/root" >> /home/magento/readme.txt
