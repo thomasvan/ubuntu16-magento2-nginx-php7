@@ -7,6 +7,7 @@ Run the latest magento 2 on Ubuntu 16.04.4 LTS, including:
 - elasticsearch 5.6.4 and 2.4.6
 - redis server version 3.0.6 
 - mysql version 14.14 Distrib 5.7.22, for Linux (x86_64) 
+- phpMyAdmin latest version
 - composer version 1.6.5
 - Module Manager version 1.12
 - You can also handle all services using supervisord 3.3.4 <container_ip>:9011 or commandline: 
@@ -35,11 +36,12 @@ $ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 2222:42
 
 ## Usage
 
-Services and port exposed
+Services and ports exposed
 - Shell In A Box – A Web-Based SSH Terminal 2.19 - http://<contaner_ip>:4200
 - ElasticSearch 5.6.4 - <contaner_ip>:9002
 - ElasticSearch 2.4.6 - <contaner_ip>:9000
 - MySQL 5.7.22 - <contaner_ip>:3306
+- phpMyAdmin http://<contaner_ip>/phpmyadmin
 - Nginx 1.10.3 and php-fpm 7.1 - http://<contaner_ip> and https://<contaner_ip> for web browsing
 
 Sample container initialization: 
@@ -64,17 +66,13 @@ You can start/stop/restart and view the error logs of nginx and php-fpm services
 And this is the most important part, getting the container ip and other information to setup magento there, you could get those by: 
 - Looking into the output of `docker logs <container-id>`:
 - Using [docker inspect](https://docs.docker.com/engine/reference/commandline/inspect/parent-command) command
-- Check the ~/readme.txt file by using [Web-Based SSH Terminal](http://127.0.0.1:2222)
+- Checking the ~/readme.txt file by using [Web-Based SSH Terminal](http://127.0.0.1:2222)
 
 ```bash
 c9786d14b245 login: magento
 Password:
-Last login: Thu Jul 12 06:21:00 UTC 2018 from 172.17.0.1 on pts/1
 Welcome to Ubuntu 16.04.4 LTS (GNU/Linux 4.15.0-26-generic x86_64)
 
- * Documentation: https://help.ubuntu.com
- * Management: https://landscape.canonical.com
- * Support: https://ubuntu.com/advantage
 magento@c9786d14b245:~$ cat ~/readme.txt
 IP Address : 172.17.0.2
 Web Directory : /home/magento/files/html
@@ -84,6 +82,7 @@ Database Host : localhost
 Database Name : magento
 Database User : magento/magento
 DB ROOT User : root/root 
+phpMyAdmin : https://172.17.0.2/phpmyadmin
 ```
 
 Now as you've got all that information, you can set up magento and access the website via IP Address or creating an alias in [hosts](https://support.rackspace.com/how-to/modify-your-hosts-file/) file
@@ -91,12 +90,8 @@ Now as you've got all that information, you can set up magento and access the we
 ```bash
 c9786d14b245 login: magento
 Password:
-Last login: Thu Jul 12 08:50:07 UTC 2018 from 172.17.0.1 on pts/2
 Welcome to Ubuntu 16.04.4 LTS (GNU/Linux 4.15.0-26-generic x86_64)
 
-* Documentation: https://help.ubuntu.com
-* Management: https://landscape.canonical.com
-* Support: https://ubuntu.com/advantage
 magento@c9786d14b245:~$ cd files/html/
 magento@c9786d14b245:~/files/html$ echo "install magento 2 here..."
 install magento 2 here...

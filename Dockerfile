@@ -90,11 +90,7 @@ RUN useradd -m -d /home/magento -p $(openssl passwd -1 'magento') -G root -s /bi
 # Generate private/public key for "magento" user
 RUN sudo -H -u magento bash -c 'echo -e "\n\n\n" | ssh-keygen -t rsa'
 
-# Magento Initialization and Startup Script
-ADD ./start.sh /start.sh
-RUN chmod 755 /start.sh
-RUN chown mysql:mysql /var/run/mysqld
-
+# Elastic Search
 RUN apt-get update && \
     apt-get -y install default-jdk && \
     useradd elasticsearch && \
@@ -118,6 +114,17 @@ RUN apt-get update && apt-get -y install redis-server
 RUN sed -i -e "s/daemonize\s*yes/daemonize no/g" /etc/redis/redis.conf
 RUN sed -i -e "s/bind\s*127\.0\.0\.1/bind 0\.0\.0\.0/g" /etc/redis/redis.conf
 RUN echo "maxmemory 1G" >> /etc/redis/redis.conf
+
+# phpMyAdmin
+RUN curl --location https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz | tar xzf - \
+    && mv phpMyAdmin* /usr/share/phpmyadmin
+ADD ./config.inc.php /usr/share/phpmyadmin/config.inc.php
+RUN chown -R magento: /usr/share/phpmyadmin
+
+# Magento Initialization and Startup Script
+ADD ./start.sh /start.sh
+RUN chmod 755 /start.sh
+RUN chown mysql:mysql /var/run/mysqld
 
 #NETWORK PORTS
 # private expose
