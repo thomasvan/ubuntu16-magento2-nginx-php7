@@ -1,6 +1,6 @@
 # ubuntu16.04.4-magento2-nginx-php7.1-2xelasticsearch-mysql-phpmyadmin-redis-composer-modman
 
-Run the latest magento 2 on Ubuntu 16.04.4 LTS, including: 
+### Run the latest magento 2 on Ubuntu 16.04.4 LTS, including: 
 - Shell In A Box – A Web-Based SSH Terminal - version 2.19
 - nginx/1.10.3 (Ubuntu)
 - php-fpm 7.1
@@ -24,9 +24,7 @@ RedisServer                      RUNNING   pid 2256, uptime 2:57:26
 System-Log                       RUNNING   pid 422, uptime 3:36:05
 ```
 
-
-## Installation
-
+### Installation
 The easiest way get up and running with this docker container is to pull the latest stable version from the [Docker Hub Registry](https://hub.docker.com/r/thomasvan/ubuntu16.04.4-magento2-nginx-php7.1-2xelasticsearch-mysql-phpmyadmin-redis-composer-modman/):
 
 ```bash
@@ -34,8 +32,7 @@ $ docker pull thomasvan/ubuntu16.04.4-magento2-nginx-php7.1-2xelasticsearch-mysq
 $ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 2222:4200 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16.04.4-magento2-nginx-php7.1-2xelasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
 ```
 
-## Usage
-
+### Usage
 Services and ports exposed
 - Shell In A Box – A Web-Based SSH Terminal 2.19 - http://<contaner_ip>:4200
 - ElasticSearch 5.6.4 - <contaner_ip>:9002
@@ -44,7 +41,7 @@ Services and ports exposed
 - phpMyAdmin http://<contaner_ip>/phpmyadmin
 - Nginx 1.10.3 and php-fpm 7.1 - http://<contaner_ip> and https://<contaner_ip> for web browsing
 
-Sample container initialization: 
+#### Sample container initialization: 
 
 ```bash
 $ docker pull thomasvan/ubuntu16.04.4-magento2-nginx-php7.1-2xelasticsearch-mysql-phpmyadmin-redis-composer-modman:latests
@@ -63,7 +60,7 @@ You can then visit the following URL in a browser on your host machine to get st
 
 You can start/stop/restart and view the error logs of nginx and php-fpm services: `http://127.0.0.1:9011`
 
-And this is the most important part, getting the container ip and other information to setup magento there, you could get those by: 
+_And this is the most important part, getting the container ip and other information to setup magento there, you could get those by:_
 - Looking into the output of `docker logs <container-id>`:
 - Using [docker inspect](https://docs.docker.com/engine/reference/commandline/inspect/parent-command) command
 - Checking the ~/readme.txt file by using [Web-Based SSH Terminal](http://127.0.0.1:2222)
@@ -71,7 +68,7 @@ And this is the most important part, getting the container ip and other informat
 ```bash
 c9786d14b245 login: magento
 Password:
-Welcome to Ubuntu 16.04.4 LTS (GNU/Linux 4.15.0-26-generic x86_64)
+Welcome to Ubuntu 16.04.4 LTS ...
 
 magento@c9786d14b245:~$ cat ~/readme.txt
 IP Address : 172.17.0.2
@@ -85,12 +82,12 @@ DB ROOT User : root/root
 phpMyAdmin : https://172.17.0.2/phpmyadmin
 ```
 
-Now as you've got all that information, you can set up magento and access the website via IP Address or creating an alias in [hosts](https://support.rackspace.com/how-to/modify-your-hosts-file/) file
+_Now as you've got all that information, you can set up magento and access the website via IP Address or creating an alias in [hosts](https://support.rackspace.com/how-to/modify-your-hosts-file/) file_
 
 ```bash
 c9786d14b245 login: magento
 Password:
-Welcome to Ubuntu 16.04.4 LTS (GNU/Linux 4.15.0-26-generic x86_64)
+Welcome to Ubuntu 16.04.4 LTS ...
 
 magento@c9786d14b245:~$ cd files/html/
 magento@c9786d14b245:~/files/html$ echo "install magento 2 here..."
