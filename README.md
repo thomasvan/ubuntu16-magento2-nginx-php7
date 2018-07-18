@@ -27,7 +27,6 @@ ___
 The easiest way get up and running with this docker container is to pull the latest stable version from the [Docker Hub Registry](https://hub.docker.com/r/thomasvan/ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman/):
 
 ```bash
-$ docker pull thomasvan/ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
 $ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 2222:4200 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
 ```
 ___
@@ -44,7 +43,6 @@ Services and ports exposed
 #### Sample container initialization: 
 
 ```bash
-$ docker pull thomasvan/ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman:latests
 $ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 2222:4200 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
 ```
 ___
