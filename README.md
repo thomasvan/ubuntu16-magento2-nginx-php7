@@ -1,4 +1,4 @@
-# ubuntu16.04.4-magento2-nginx-php7.1-2xelasticsearch-mysql-phpmyadmin-redis-composer-modman
+# ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman
 
 ### Run the latest magento 2 on Ubuntu 16.04.4 LTS, including: 
 - Shell In A Box – A Web-Based SSH Terminal - version 2.19
@@ -25,11 +25,11 @@ System-Log                       RUNNING   pid 422, uptime 3:36:05
 ```
 
 ### Installation
-The easiest way get up and running with this docker container is to pull the latest stable version from the [Docker Hub Registry](https://hub.docker.com/r/thomasvan/ubuntu16.04.4-magento2-nginx-php7.1-2xelasticsearch-mysql-phpmyadmin-redis-composer-modman/):
+The easiest way get up and running with this docker container is to pull the latest stable version from the [Docker Hub Registry](https://hub.docker.com/r/thomasvan/ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman/):
 
 ```bash
-$ docker pull thomasvan/ubuntu16.04.4-magento2-nginx-php7.1-2xelasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
-$ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 2222:4200 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16.04.4-magento2-nginx-php7.1-2xelasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
+$ docker pull thomasvan/ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
+$ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 2222:4200 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
 ```
 
 ### Usage
@@ -44,11 +44,11 @@ Services and ports exposed
 #### Sample container initialization: 
 
 ```bash
-$ docker pull thomasvan/ubuntu16.04.4-magento2-nginx-php7.1-2xelasticsearch-mysql-phpmyadmin-redis-composer-modman:latests
-$ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 2222:4200 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16.04.4-magento2-nginx-php7.1-2xelasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
+$ docker pull thomasvan/ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman:latests
+$ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 2222:4200 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
 ```
 
-After starting the container ubuntu16.04.4-magento2-nginx-php7.1-2xelasticsearch-mysql-phpmyadmin-redis-composer-modman, please check to see if it has started and the port mapping is correct. This will also report the port mapping between the docker container and the host machine.
+After starting the container ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman, please check to see if it has started and the port mapping is correct. This will also report the port mapping between the docker container and the host machine.
 
 ```bash
 $ docker ps
@@ -94,5 +94,9 @@ magento@c9786d14b245:~/files/html$ echo "install magento 2 here..."
 install magento 2 here...
 magento@c9786d14b245:~/files/html$ echo "all set, you can browse your website now"
 all set, you can browse your website now
-magento@c9786d14b245:~/files/html$
+magento@c9786d14b245:~/files/html$ 
    ```
+
+### Feedback
+* If anyone has suggestions please leave a comment on [this GitHub issue](https://github.com/thomasvan/ubuntu16-magento2-nginx-php7/issues/2).
+* Requests? Just make a comment on [this GitHub issue](https://github.com/thomasvan/ubuntu16-magento2-nginx-php7/issues/1) if there's anything you'd like added or changed.
