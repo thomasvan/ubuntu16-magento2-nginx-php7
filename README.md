@@ -1,5 +1,3 @@
-# ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman
-
 ### Run the latest magento 2 on Ubuntu 16.04.4 LTS, including: 
 - Shell In A Box – A Web-Based SSH Terminal - version 2.19
 - nginx/1.10.3 (Ubuntu)
@@ -23,6 +21,7 @@ PHP-FPM                          RUNNING   pid 417, uptime 3:36:05
 RedisServer                      RUNNING   pid 2256, uptime 2:57:26
 System-Log                       RUNNING   pid 422, uptime 3:36:05
 ```
+<br />
 
 ### Installation
 The easiest way get up and running with this docker container is to pull the latest stable version from the [Docker Hub Registry](https://hub.docker.com/r/thomasvan/ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman/):
@@ -31,6 +30,7 @@ The easiest way get up and running with this docker container is to pull the lat
 $ docker pull thomasvan/ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
 $ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 2222:4200 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
 ```
+<br />
 
 ### Usage
 Services and ports exposed
@@ -47,6 +47,7 @@ Services and ports exposed
 $ docker pull thomasvan/ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman:latests
 $ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 2222:4200 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
 ```
+<br />
 
 After starting the container ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman, please check to see if it has started and the port mapping is correct. This will also report the port mapping between the docker container and the host machine.
 
@@ -55,6 +56,7 @@ $ docker ps
 
 0.0.0.0:9011->9011/tcp, 0.0.0.0:2222->4200/tcp
 ```
+<br />
 
 You can then visit the following URL in a browser on your host machine to get started(account: magento/magento): `http://127.0.0.1:2222`
 
@@ -81,6 +83,7 @@ Database User : magento/magento
 DB ROOT User : root/root 
 phpMyAdmin : https://172.17.0.2/phpmyadmin
 ```
+<br />
 
 _Now as you've got all that information, you can set up magento and access the website via IP Address or creating an alias in [hosts](https://support.rackspace.com/how-to/modify-your-hosts-file/) file_
 
@@ -96,7 +99,8 @@ magento@c9786d14b245:~/files/html$ echo "all set, you can browse your website no
 all set, you can browse your website now
 magento@c9786d14b245:~/files/html$ 
    ```
+<br />
 
-### Feedback
-* If anyone has suggestions please leave a comment on [this GitHub issue](https://github.com/thomasvan/ubuntu16-magento2-nginx-php7/issues/2).
-* Requests? Just make a comment on [this GitHub issue](https://github.com/thomasvan/ubuntu16-magento2-nginx-php7/issues/1) if there's anything you'd like added or changed.
+> If anyone has suggestions please leave a comment on [this GitHub issue](https://github.com/thomasvan/ubuntu16-magento2-nginx-php7/issues/2).
+
+> Requests? Just make a comment on [this GitHub issue](https://github.com/thomasvan/ubuntu16-magento2-nginx-php7/issues/1) if there's anything you'd like added or changed.
