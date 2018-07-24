@@ -23,14 +23,6 @@ System-Log                       RUNNING   pid 422, uptime 3:36:05
 ```
 ___
 
-### Installation
-The easiest way get up and running with this docker container is to pull the latest stable version from the [Docker Hub Registry](https://hub.docker.com/r/thomasvan/ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman/):
-
-```bash
-$ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 2222:4200 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
-```
-___
-
 ### Usage
 Services and ports exposed
 - Shell In A Box – A Web-Based SSH Terminal 2.19 - http://<contaner_ip>:4200
@@ -49,6 +41,7 @@ ___
 
 After starting the container ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman, please check to see if it has started and the port mapping is correct. This will also report the port mapping between the docker container and the host machine.
 
+##### Accessing containers by port mapping
 ```bash
 $ docker ps
 
@@ -61,10 +54,14 @@ You can then visit the following URL in a browser on your host machine to get st
 
 You can start/stop/restart and view the error logs of nginx and php-fpm services: `http://127.0.0.1:9011`
 
-_And this is the most important part, getting the container ip and other information to setup magento there, you could get those by:_
+##### Accessing containers by internal IP
+
+_For Windows 10, you need to adding route manually before using one of the ways below to get internal IP:_
 - Looking into the output of `docker logs <container-id>`:
 - Using [docker inspect](https://docs.docker.com/engine/reference/commandline/inspect/parent-command) command
 - Checking the ~/readme.txt file by using [Web-Based SSH Terminal](http://127.0.0.1:2222)
+___
+ 
 
 ```bash
 c9786d14b245 login: magento
@@ -84,7 +81,7 @@ phpMyAdmin : https://172.17.0.2/phpmyadmin
 ```
 ___
 
-_Now as you've got all that information, you can set up magento and access the website via IP Address or creating an alias in [hosts](https://support.rackspace.com/how-to/modify-your-hosts-file/) file_
+_Now as you've got all that information, you can set up magento and access the website via IP Address or creating an [alias in hosts](https://support.rackspace.com/how-to/modify-your-hosts-file/) file_
 
 ```bash
 c9786d14b245 login: magento
