@@ -37,20 +37,15 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 # php-fpm config
 RUN sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php/7.1/fpm/php.ini
 RUN sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 100M/g" /etc/php/7.1/fpm/php.ini
-RUN sed -i -e "s/max_execution_time\s*=\s*30/max_execution_time = 3600/g" /etc/php/7.1/fpm/php.ini
 RUN sed -i -e "s/memory_limit\s*=\s*128M/memory_limit = 2048M/g" /etc/php/7.1/fpm/php.ini
-RUN sed -i -e "s/;\s*max_input_vars\s*=\s*1000/max_input_vars = 36000/g" /etc/php/7.1/fpm/php.ini
-
-RUN sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php/7.1/cli/php.ini
-RUN sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 100M/g" /etc/php/7.1/cli/php.ini
-RUN sed -i -e "s/max_execution_time\s*=\s*30/max_execution_time = 3600/g" /etc/php/7.1/cli/php.ini
-RUN sed -i -e "s/memory_limit\s*=\s*128M/memory_limit = 2048M/g" /etc/php/7.1/cli/php.ini
-RUN sed -i -e "s/;\s*max_input_vars\s*=\s*1000/max_input_vars = 36000/g" /etc/php/7.1/cli/php.ini
+RUN sed -i -e "s/max_execution_time\s*=\s*30/max_execution_time = 3600/g" /etc/php/7.1/fpm/php.ini /etc/php/7.1/cli/php.ini
+RUN sed -i -e "s/;\s*max_input_vars\s*=\s*1000/max_input_vars = 36000/g" /etc/php/7.1/fpm/php.ini /etc/php/7.1/cli/php.ini
 
 RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.1/fpm/php-fpm.conf
 RUN sed -i -e "s/;catch_workers_output\s*=\s*yes/catch_workers_output = yes/g" /etc/php/7.1/fpm/pool.d/www.conf
 RUN sed -i -e "s/user\s*=\s*www-data/user = magento/g" /etc/php/7.1/fpm/pool.d/www.conf
-# replace # by ; RUN find /etc/php/7.1/mods-available/tmp -name "*.ini" -exec sed -i -re 's/^(\s*)#(.*)/\1;\2/g' {} \;
+COPY serve-php-fpm.conf /tmp/
+RUN cat /tmp/serve-php-fpm.conf >> /etc/php/7.1/fpm/pool.d/www.conf && rm -f /tmp/serve-php-fpm.conf
 
 # nginx site conf
 ADD ./nginx-site.conf /etc/nginx/sites-available/default
@@ -121,7 +116,9 @@ RUN curl --location https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-l
 ADD ./config.inc.php /usr/share/phpmyadmin/config.inc.php
 RUN chown -R magento: /usr/share/phpmyadmin
 
-# Magento Initialization and Startup Script
+# Magento cron and startup Script
+COPY magento.cron /tmp/
+RUN crontab -u magento /tmp/magento.cron
 ADD ./start.sh /start.sh
 RUN chmod 755 /start.sh
 RUN chown mysql:mysql /var/run/mysqld
