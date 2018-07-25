@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 MAINTAINER Thomas Van<thomas@forixdigital.com>
 
 # Keep upstart from complaining
@@ -11,20 +11,18 @@ RUN mkdir /var/run/mysqld
 # Let the conatiner know that there is no tty
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN \
-    apt-get update && \
-    apt-get install -y software-properties-common python-software-properties && \
-    LC_ALL=C.UTF-8 add-apt-repository -y -u ppa:ondrej/php
-RUN apt-get update
-RUN apt-get -y upgrade
+RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    LC_ALL=C.UTF-8 add-apt-repository -y -u ppa:ondrej/php && \
+    apt-get -y upgrade
 
 # Basic Requirements
 RUN apt-get -y install python-setuptools curl git nano sudo unzip openssh-server openssl shellinabox
-RUN apt-get -y install mysql-server nginx php7.1-fpm
+RUN apt-get -y install mysql-server nginx php7.0-fpm
 
 # Magento Requirements
 
-RUN apt-get -y install php7.1-xml php7.1-mcrypt php7.1-mbstring php7.1-bcmath php7.1-gd php7.1-zip php7.1-mysql php7.1-curl php7.1-intl php7.1-soap
+RUN apt-get -y install php7.0-xml php7.0-mcrypt php7.0-mbstring php7.0-bcmath php7.0-gd php7.0-zip php7.0-mysql php7.0-curl php7.0-intl php7.0-soap
 # mysql config
 RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/explicit_defaults_for_timestamp = true\nbind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf
 
@@ -35,15 +33,15 @@ RUN sed -i -e"s/keepalive_timeout 2/keepalive_timeout 2;\n\tclient_max_body_size
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 # php-fpm config
-RUN sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php/7.1/fpm/php.ini
-RUN sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 100M/g" /etc/php/7.1/fpm/php.ini
-RUN sed -i -e "s/memory_limit\s*=\s*128M/memory_limit = 2048M/g" /etc/php/7.1/fpm/php.ini
-RUN sed -i -e "s/max_execution_time\s*=\s*30/max_execution_time = 3600/g" /etc/php/7.1/fpm/php.ini /etc/php/7.1/cli/php.ini
-RUN sed -i -e "s/;\s*max_input_vars\s*=\s*1000/max_input_vars = 36000/g" /etc/php/7.1/fpm/php.ini /etc/php/7.1/cli/php.ini
+RUN sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php/7.0/fpm/php.ini
+RUN sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 100M/g" /etc/php/7.0/fpm/php.ini
+RUN sed -i -e "s/memory_limit\s*=\s*128M/memory_limit = 2048M/g" /etc/php/7.0/fpm/php.ini
+RUN sed -i -e "s/max_execution_time\s*=\s*30/max_execution_time = 3600/g" /etc/php/7.0/fpm/php.ini /etc/php/7.0/cli/php.ini
+RUN sed -i -e "s/;\s*max_input_vars\s*=\s*1000/max_input_vars = 36000/g" /etc/php/7.0/fpm/php.ini /etc/php/7.0/cli/php.ini
 
-RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.1/fpm/php-fpm.conf
-RUN sed -i -e "s/;catch_workers_output\s*=\s*yes/catch_workers_output = yes/g" /etc/php/7.1/fpm/pool.d/www.conf
-RUN sed -i -e "s/user\s*=\s*www-data/user = magento/g" /etc/php/7.1/fpm/pool.d/www.conf
+RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.0/fpm/php-fpm.conf
+RUN sed -i -e "s/;catch_workers_output\s*=\s*yes/catch_workers_output = yes/g" /etc/php/7.0/fpm/pool.d/www.conf
+RUN sed -i -e "s/user\s*=\s*www-data/user = magento/g" /etc/php/7.0/fpm/pool.d/www.conf
 
 # nginx site conf
 ADD ./nginx-site.conf /etc/nginx/sites-available/default
@@ -68,8 +66,7 @@ RUN curl -sSL https://raw.github.com/colinmollenhour/modman/master/modman > /usr
 RUN chmod +x /usr/sbin/modman
 
 # Supervisor Config
-RUN /usr/bin/easy_install supervisor
-RUN /usr/bin/easy_install supervisor-stdout
+RUN apt-get install -y supervisor
 ADD ./supervisord.conf /etc/supervisord.conf
 
 # Add system user for Magento
@@ -103,7 +100,7 @@ RUN echo "cluster.name: elastic4magento\nnode.name: node-5.x\nnode.master: true\
 
 RUN echo "cluster.name: elastic4magento\nnode.name: node-2.x\n#node.master: true\nnode.data: true\ntransport.host: localhost\ntransport.tcp.port: 9300\nhttp.port: 9200\nnetwork.host: 0.0.0.0\nindices.query.bool.max_clause_count: 16384" >> /etc/elasticsearch-2.4.6/config/elasticsearch.yml
 
-RUN apt-get update && apt-get -y install redis-server
+RUN apt-get -y install redis-server
 RUN sed -i -e "s/daemonize\s*yes/daemonize no/g" /etc/redis/redis.conf
 RUN sed -i -e "s/bind\s*127\.0\.0\.1/bind 0\.0\.0\.0/g" /etc/redis/redis.conf
 RUN echo "maxmemory 1G" >> /etc/redis/redis.conf

@@ -1,7 +1,7 @@
 ### Run the latest magento 2 on Ubuntu 16.04.4 LTS, including: 
 - Shell In A Box – A Web-Based SSH Terminal - version 2.19
 - nginx/1.10.3 (Ubuntu)
-- php-fpm 7.1
+- php-fpm 7.0
 - elasticsearch 5.6.4 and 2.4.6
 - redis server version 3.0.6 
 - mysql version 14.14 Distrib 5.7.22, for Linux (x86_64) 
@@ -30,7 +30,7 @@ Services and ports exposed
 - ElasticSearch 2.4.6 - <contaner_ip>:9000
 - MySQL 5.7.22 - <contaner_ip>:3306
 - phpMyAdmin http://<contaner_ip>/phpmyadmin
-- Nginx 1.10.3 and php-fpm 7.1 - http://<contaner_ip> and https://<contaner_ip> for web browsing
+- Nginx 1.10.3 and php-fpm 7.0 - http://<contaner_ip> and https://<contaner_ip> for web browsing
 
 #### Sample container initialization: 
 
@@ -56,7 +56,7 @@ You can start/stop/restart and view the error logs of nginx and php-fpm services
 
 ##### Accessing containers by internal IP
 
-_For Windows 10, you need to adding route manually before using one of the ways below to get internal IP:_
+_For Windows 10, you need to [add route: route add 172.17.0.0 MASK 255.255.0.0 10.0.75.2](https://forums.docker.com/t/connecting-to-containers-ip-address/18817/13)_
 - Looking into the output of `docker logs <container-id>`:
 - Using [docker inspect](https://docs.docker.com/engine/reference/commandline/inspect/parent-command) command
 - Checking the ~/readme.txt file by using [Web-Based SSH Terminal](http://127.0.0.1:2222)
