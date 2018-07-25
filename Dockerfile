@@ -94,7 +94,8 @@ RUN apt-get update && \
     mv elasticsearch-2.4.6 /etc/ && \
     mkdir /etc/elasticsearch-2.4.6/logs && \
     touch /etc/elasticsearch-2.4.6/logs/elastic4magento.log && \
-    chown -R elasticsearch /etc/elasticsearch-*
+    chown -R elasticsearch /etc/elasticsearch-* && \
+    rm -f elasticsearch-*
 
 RUN echo "cluster.name: elastic4magento\nnode.name: node-5.x\nnode.master: true\nnode.data: true\ntransport.host: localhost\ntransport.tcp.port: 9302\nhttp.port: 9202\nnetwork.host: 0.0.0.0\nindices.query.bool.max_clause_count: 16384" >> /etc/elasticsearch-5.6.4/config/elasticsearch.yml
 
