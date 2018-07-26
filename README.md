@@ -1,45 +1,47 @@
 ### Run the latest magento 2 on Ubuntu 16.04.4 LTS, including: 
 - Shell In A Box – A Web-Based SSH Terminal - version 2.19
-- nginx/1.10.3 (Ubuntu)
-- php-fpm 7.0
+- nginx version: nginx/1.
+- php-fpm 7.0.
 - elasticsearch 5.6.4 and 2.4.6
-- redis server version 3.0.6 
-- mysql version 14.14 Distrib 5.7.22, for Linux (x86_64) 
+- redis server version 4.
+- mysql version 5.7.
 - phpMyAdmin latest version
-- composer version 1.6.5
-- Module Manager version 1.12
-- You can also handle all services using supervisord 3.3.4 <container_ip>:9011 or commandline: 
+- composer latest version
+- Module Manager lastest version
+- You can also handle all services using supervisord 3. <container_ip>:9011 or commandline: 
 
 ```bash
 magento@c9786d14b245:~/files/html$ sudo supervisorctl 
-BroswerBased-SSH                 RUNNING   pid 421, uptime 3:36:05
+BroswerBased-SSH                 RUNNING   pid 18, uptime 1:30:39
+Cron                             RUNNING   pid 20, uptime 1:30:39
 ElasticSearch_2.x_9200           STOPPED   Not started
-ElasticSearch_5.x_9202           RUNNING   pid 420, uptime 3:36:05
-MySQL                            RUNNING   pid 1437, uptime 3:35:01
-NGINX                            RUNNING   pid 2329, uptime 1:21:16
-PHP-FPM                          RUNNING   pid 417, uptime 3:36:05
-RedisServer                      RUNNING   pid 2256, uptime 2:57:26
-System-Log                       RUNNING   pid 422, uptime 3:36:05
+ElasticSearch_5.x_9202           RUNNING   pid 16, uptime 1:30:39
+MySQL                            RUNNING   pid 14, uptime 1:30:39
+NGINX                            RUNNING   pid 15, uptime 1:30:39
+PHP-FPM                          RUNNING   pid 13, uptime 1:30:39
+RedisServer                      RUNNING   pid 17, uptime 1:30:39
+System-Log                       RUNNING   pid 19, uptime 1:30:39
 ```
 ___
 
 ### Usage
 Services and ports exposed
-- Shell In A Box – A Web-Based SSH Terminal 2.19 - http://<contaner_ip>:4200
+- Shell In A Box – A Web-Based SSH Terminal - http://<contaner_ip>:4200
 - ElasticSearch 5.6.4 - <contaner_ip>:9002
 - ElasticSearch 2.4.6 - <contaner_ip>:9000
-- MySQL 5.7.22 - <contaner_ip>:3306
+- MySQL - <contaner_ip>:3306
 - phpMyAdmin http://<contaner_ip>/phpmyadmin
-- Nginx 1.10.3 and php-fpm 7.0 - http://<contaner_ip> and https://<contaner_ip> for web browsing
+- Nginx and php-fpm 7.0 - http://<contaner_ip> and https://<contaner_ip> for web browsing
+- Redis - <contaner_ip>:6379
 
 #### Sample container initialization: 
 
 ```bash
-$ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 2222:4200 -p 9011:9011 --name docker-name -d thomasvan/ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
+$ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 2222:4200 -p 9011:9011 --name docker-name -d thomasvan/ubuntu18-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
 ```
 ___
 
-After starting the container ubuntu16.04.4-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman, please check to see if it has started and the port mapping is correct. This will also report the port mapping between the docker container and the host machine.
+After starting the container ubuntu18-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman, please check to see if it has started and the port mapping is correct. This will also report the port mapping between the docker container and the host machine.
 
 ##### Accessing containers by port mapping
 ```bash
@@ -56,7 +58,7 @@ You can start/stop/restart and view the error logs of nginx and php-fpm services
 
 ##### Accessing containers by internal IP
 
-_For Windows 10, you need to [add route: route add 172.17.0.0 MASK 255.255.0.0 10.0.75.2](https://forums.docker.com/t/connecting-to-containers-ip-address/18817/13)_
+_For Windows 10, you need to [add route: route add 172.17.0.0 MASK 255.255.0.0 10.0.75.2](https://forums.docker.com/t/connecting-to-containers-ip-address/18817/13) before getting the container ip by following:_
 - Looking into the output of `docker logs <container-id>`:
 - Using [docker inspect](https://docs.docker.com/engine/reference/commandline/inspect/parent-command) command
 - Checking the ~/readme.txt file by using [Web-Based SSH Terminal](http://127.0.0.1:2222)
@@ -66,7 +68,7 @@ ___
 ```bash
 c9786d14b245 login: magento
 Password:
-Welcome to Ubuntu 16.04.4 LTS ...
+Welcome to Ubuntu 18.04.1 LTS ...
 
 magento@c9786d14b245:~$ cat ~/readme.txt
 IP Address : 172.17.0.2
@@ -86,7 +88,7 @@ _Now as you've got all that information, you can set up magento and access the w
 ```bash
 c9786d14b245 login: magento
 Password:
-Welcome to Ubuntu 16.04.4 LTS ...
+Welcome to Ubuntu 18.04.1 LTS ...
 
 magento@c9786d14b245:~$ cd files/html/
 magento@c9786d14b245:~/files/html$ echo "install magento 2 here..."
@@ -98,6 +100,6 @@ magento@c9786d14b245:~/files/html$
 ___
 
 
-_If anyone has suggestions please leave a comment on [this GitHub issue](https://github.com/thomasvan/ubuntu16-magento2-nginx-php7/issues/2)._
+_If anyone has suggestions please leave a comment on [this GitHub issue](https://github.com/thomasvan/ubuntu18-magento2-nginx-php7/issues/2)._
 
-_Requests? Just make a comment on [this GitHub issue](https://github.com/thomasvan/ubuntu16-magento2-nginx-php7/issues/1) if there's anything you'd like added or changed._
+_Requests? Just make a comment on [this GitHub issue](https://github.com/thomasvan/ubuntu18-magento2-nginx-php7/issues/1) if there's anything you'd like added or changed._
