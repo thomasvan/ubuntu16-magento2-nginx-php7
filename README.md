@@ -1,10 +1,10 @@
-### Run the latest magento 2 on Ubuntu 16.04.4 LTS, including: 
-- Shell In A Box – A Web-Based SSH Terminal - version 2.19
-- nginx version: nginx/1.
-- php-fpm 7.0.
+### Run the latest magento 2 on Ubuntu 18.04.1 LTS, including: 
+- Shell In A Box – A Web-Based SSH Terminal - version 2.x
+- nginx version: nginx/1.x
+- php-fpm 7.0.x
 - elasticsearch 5.6.4 and 2.4.6
-- redis server version 4.
-- mysql version 5.7.
+- redis server version 4.x
+- mysql version 5.7.x
 - phpMyAdmin latest version
 - composer latest version
 - Module Manager lastest version
@@ -31,7 +31,7 @@ Services and ports exposed
 - ElasticSearch 2.4.6 - <contaner_ip>:9000
 - MySQL - <contaner_ip>:3306
 - phpMyAdmin http://<contaner_ip>/phpmyadmin
-- Nginx and php-fpm 7.0 - http://<contaner_ip> and https://<contaner_ip> for web browsing
+- Nginx and php-fpm 7.0.x - http://<contaner_ip> and https://<contaner_ip> for web browsing
 - Redis - <contaner_ip>:6379
 
 #### Sample container initialization: 
