@@ -7,7 +7,6 @@ $i++;
 $cfg['Servers'][$i]['user']          = 'root';
 $cfg['Servers'][$i]['password']      = 'root'; // use here your password
 $cfg['Servers'][$i]['auth_type']     = 'config';
-
 $cfg['Servers'][$i]['host']     = 'localhost';
 $cfg['Servers'][$i]['port']     = '3306';
 $cfg['Servers'][$i]['compress'] = false;

@@ -1,1 +1,0 @@
-*/5 * * * * php /home/magento/files/html/bin/magento cron:run | grep -v "Ran jobs by schedule" >> /home/magento/files/html/var/log/magento.cron.log
