@@ -58,7 +58,7 @@ You can start/stop/restart and view the error logs of nginx and php-fpm services
 
 ##### Accessing containers by internal IP
 
-_For Windows 10, you need to [add route: route add 172.17.0.0 MASK 255.255.0.0 10.0.75.2](https://forums.docker.com/t/connecting-to-containers-ip-address/18817/13) before getting the container ip by following:_
+_For Windows 10, you need to [add route: route add 172.17.0.0 MASK 255.255.0.0 10.0.75.2](https://forums.docker.com/t/connecting-to-containers-ip-address/18817/13) manually before using one of the ways below to get internal IP:_
 - Looking into the output of `docker logs <container-id>`:
 - Using [docker inspect](https://docs.docker.com/engine/reference/commandline/inspect/parent-command) command
 - Checking the ~/readme.txt file by using [Web-Based SSH Terminal](http://127.0.0.1:2222)
