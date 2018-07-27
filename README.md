@@ -37,7 +37,7 @@ Services and ports exposed
 #### Sample container initialization: 
 
 ```bash
-$ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 2222:4200 -p 9011:9011 --name docker-name -d thomasvan/ubuntu18-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
+$ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 4222:4200 -p 9022:9011 --name docker-name -d thomasvan/ubuntu18-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
 ```
 ___
 
@@ -47,7 +47,7 @@ After starting the container ubuntu18-magento2-nginx-php7-elasticsearch-mysql-ph
 ```bash
 $ docker ps
 
-0.0.0.0:9011->9011/tcp, 0.0.0.0:2222->4200/tcp
+0.0.0.0:9011->9022/tcp, 0.0.0.0:4022->4200/tcp
 ```
 ___
 
