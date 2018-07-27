@@ -15,11 +15,11 @@ magento@c9786d14b245:~/files/html$ sudo supervisorctl
 BroswerBased-SSH                 RUNNING   pid 18, uptime 1:30:39
 Cron                             RUNNING   pid 20, uptime 1:30:39
 ElasticSearch_2.x_9200           STOPPED   Not started
-ElasticSearch_5.x_9202           RUNNING   pid 16, uptime 1:30:39
+ElasticSearch_5.x_9202           STOPPED   Not started
 MySQL                            RUNNING   pid 14, uptime 1:30:39
 NGINX                            RUNNING   pid 15, uptime 1:30:39
 PHP-FPM                          RUNNING   pid 13, uptime 1:30:39
-RedisServer                      RUNNING   pid 17, uptime 1:30:39
+RedisServer                      STOPPED   Not started
 System-Log                       RUNNING   pid 19, uptime 1:30:39
 ```
 ___
