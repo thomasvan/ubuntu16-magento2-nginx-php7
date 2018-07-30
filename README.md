@@ -37,7 +37,7 @@ s
 #### Sample container initialization: 
 
 ```bash
-$ docker run -v <your-webapp-root-directory>:/home/magento/files/html -p 4222:4200 -p 9022:9011 --name docker-name -d thomasvan/ubuntu18-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
+$ docker run -v <your-webapp-root-directory>:/home/magento/files -p 4222:4200 -p 9022:9011 --name docker-name -d thomasvan/ubuntu18-magento2-nginx-php7-elasticsearch-mysql-phpmyadmin-redis-composer-modman:latest
 ```
 ___
 
