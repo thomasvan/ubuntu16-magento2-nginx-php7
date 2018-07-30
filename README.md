@@ -7,7 +7,7 @@
 - mysql version 5.7.x
 - phpMyAdmin latest version
 - composer latest version
-- Module Manager lastest version
+- Module Manager latest version
 - You can also handle all services using supervisord 3. <container_ip>:9011 or commandline: 
 
 ```bash
@@ -26,14 +26,14 @@ ___
 
 ### Usage
 Services and ports exposed
-- Shell In A Box – A Web-Based SSH Terminal - http://<contaner_ip>:4200
-- ElasticSearch 5.6.4 - <contaner_ip>:9002
-- ElasticSearch 2.4.6 - <contaner_ip>:9000
-- MySQL - <contaner_ip>:3306
-- phpMyAdmin http://<contaner_ip>/phpmyadmin
-- Nginx and php-fpm 7.0.x - http://<contaner_ip> and https://<contaner_ip> for web browsing
-- Redis - <contaner_ip>:6379
-
+- Shell In A Box – A Web-Based SSH Terminal - http://<container_ip>:4200
+- ElasticSearch 5.6.4 - <container_ip>:9002
+- ElasticSearch 2.4.6 - <container_ip>:9000
+- MySQL - <container_ip>:3306
+- phpMyAdmin - http://<container_ip>/phpmyadmin
+- Nginx and php-fpm 7.0.x - http://<container_ip> and https://<container_ip> for web browsing
+- Redis - <container_ip>:6379
+s
 #### Sample container initialization: 
 
 ```bash
@@ -54,11 +54,11 @@ ___
 
 You can then visit the following URL in a browser on your host machine to get started(account: magento/magento): `http://127.0.0.1:2222`
 
-You can start/stop/restart and view the error logs of nginx and php-fpm services: `http://127.0.0.1:9011`
+You can start/stop/restart and view the error logs of nginx and php-fpm services: `http://127.0.0.1:9022`
 
 ##### Accessing containers by internal IP
 
-_For Windows 10, you need to [add route: route add 172.17.0.0 MASK 255.255.0.0 10.0.75.2](https://forums.docker.com/t/connecting-to-containers-ip-address/18817/13) manually before using one of the ways below to get internal IP:_
+_For Windows 10, you need to [add route: route add 172.17.0.0 MASK 255.255.0.0 10.0.75.2](https://forums.docker.com/t/connecting-to-containers-ip-address/18817/13) manually before using one of the following ways to get internal IP:_
 - Looking into the output of `docker logs <container-id>`:
 - Using [docker inspect](https://docs.docker.com/engine/reference/commandline/inspect/parent-command) command
 - Checking the ~/readme.txt file by using [Web-Based SSH Terminal](http://127.0.0.1:2222)
