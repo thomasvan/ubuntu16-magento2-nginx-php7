@@ -33,7 +33,7 @@ Services and ports exposed
 - phpMyAdmin - http://<container_ip>/phpmyadmin
 - Nginx and php-fpm 7.0.x - http://<container_ip> and https://<container_ip> for web browsing
 - Redis - <container_ip>:6379
-s
+
 #### Sample container initialization: 
 
 ```bash
