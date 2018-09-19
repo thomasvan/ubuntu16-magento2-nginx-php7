@@ -1,4 +1,4 @@
-### Run the latest magento 2 on Ubuntu 18.04.1 LTS, including: 
+### Run the latest magento 2 on Ubuntu 18.04.1 LTS, including:
 - Shell In A Box – A Web-Based SSH Terminal - version 2.x
 - nginx version: nginx/1.x
 - php-fpm 7.0.x
@@ -8,10 +8,10 @@
 - phpMyAdmin latest version
 - composer latest version
 - Module Manager latest version
-- You can also handle all services using supervisord 3. <container_ip>:9011 or commandline: 
+- You can also handle all services using supervisord 3. <container_ip>:9011 or commandline:
 
 ```bash
-magento@c9786d14b245:~/files/html$ sudo supervisorctl 
+magento@c9786d14b245:~/files/html$ sudo supervisorctl
 BroswerBased-SSH                 RUNNING   pid 18, uptime 1:30:39
 Cron                             RUNNING   pid 20, uptime 1:30:39
 ElasticSearch_2.x_9200           STOPPED   Not started
@@ -78,7 +78,7 @@ ROOT User : root/root
 Database Host : localhost
 Database Name : magento
 Database User : magento/magento
-DB ROOT User : root/root 
+DB ROOT User : root/root
 phpMyAdmin : https://172.17.0.2/phpmyadmin
 ```
 ___
@@ -95,7 +95,7 @@ magento@c9786d14b245:~/files/html$ echo "install magento 2 here..."
 install magento 2 here...
 magento@c9786d14b245:~/files/html$ echo "all set, you can browse your website now"
 all set, you can browse your website now
-magento@c9786d14b245:~/files/html$ 
+magento@c9786d14b245:~/files/html$
    ```
 ___
 

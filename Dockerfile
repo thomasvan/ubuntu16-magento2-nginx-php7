@@ -78,6 +78,7 @@ RUN useradd -m -d /home/magento -p $(openssl passwd -1 'magento') -G root -s /bi
     && mkdir -p /home/magento/files/html \
     && chown -R magento: /home/magento/files \
     && chmod -R 775 /home/magento/files
+RUN echo "magento ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # Generate private/public key for "magento" user
 RUN sudo -H -u magento bash -c 'echo -e "\n\n\n" | ssh-keygen -t rsa'
@@ -91,7 +92,7 @@ RUN apt-get -y install openjdk-8-jre && \
     mv elasticsearch-5.6.4 /etc/ && \
     mkdir /etc/elasticsearch-5.6.4/logs && \
     touch /etc/elasticsearch-5.6.4/logs/elastic4magento.log && \
-    curl -L -O https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-2.4.6.tar.gz && \
+    curl -L -O https://download.elastic.co/elasticsrearch/elasticsearch/elasticsearch-2.4.6.tar.gz && \
     tar -zxf elasticsearch-2.4.6.tar.gz && \
     mv elasticsearch-2.4.6 /etc/ && \
     mkdir /etc/elasticsearch-2.4.6/logs && \
