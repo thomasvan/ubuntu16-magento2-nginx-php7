@@ -92,7 +92,7 @@ RUN apt-get -y install openjdk-8-jre && \
     mv elasticsearch-5.6.4 /etc/ && \
     mkdir /etc/elasticsearch-5.6.4/logs && \
     touch /etc/elasticsearch-5.6.4/logs/elastic4magento.log && \
-    curl -L -O https://download.elastic.co/elasticsrearch/elasticsearch/elasticsearch-2.4.6.tar.gz && \
+    curl -L -O https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/2.4.6/elasticsearch-2.4.6.tar.gz && \
     tar -zxf elasticsearch-2.4.6.tar.gz && \
     mv elasticsearch-2.4.6 /etc/ && \
     mkdir /etc/elasticsearch-2.4.6/logs && \
