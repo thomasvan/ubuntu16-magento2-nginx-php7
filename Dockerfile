@@ -1,5 +1,5 @@
 FROM ubuntu:18.04
-MAINTAINER Thomas Van<thomas@forixdigital.com>
+LABEL maintainer="Thomas Van<thomas@forixdigital.com>"
 
 # Keep upstart from complaining
 RUN dpkg-divert --local --rename --add /sbin/initctl && \
