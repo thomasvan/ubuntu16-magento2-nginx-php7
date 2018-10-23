@@ -23,7 +23,6 @@ fi
 
 if [ ! -f /home/magento/readme.txt ]; then
     CONTAINER_IP=`networkctl status | awk '/Address/ {print $2}'`
-    echo -e "SSH Address\t: http://$CONTAINER_IP:4200" >> /home/magento/readme.txt
     echo -e "Services Addr\t: http://$CONTAINER_IP:9011" >> /home/magento/readme.txt
     echo -e "Web Address\t: https://$CONTAINER_IP" >> /home/magento/readme.txt
     echo -e "Web Directory\t: /home/magento/files/html" >> /home/magento/readme.txt

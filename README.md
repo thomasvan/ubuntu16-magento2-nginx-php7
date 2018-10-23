@@ -13,7 +13,6 @@
 
 ```bash
 magento@c9786d14b245:~/files/html$ sudo supervisorctl
-BroswerBased-SSH                 RUNNING   pid 18, uptime 1:30:39
 Cron                             RUNNING   pid 20, uptime 1:30:39
 ElasticSearch_2.x_9200           STOPPED   Not started
 ElasticSearch_5.x_9202           STOPPED   Not started
@@ -49,12 +48,9 @@ After starting the container ubuntu18-magento2-nginx-php7-elasticsearch-mysql-ph
 ```bash
 $ docker ps
 
-0.0.0.0:9011->9022/tcp, 0.0.0.0:4022->4200/tcp
+0.0.0.0:9011->9022/tcp
 ```
 ___
-
-
-You can then visit the following URL in a browser on your host machine to get started(account: magento/magento): `http://127.0.0.1:2222`
 
 You can start/stop/restart and view the error logs of nginx and php-fpm services: `http://127.0.0.1:9022`
 
@@ -63,7 +59,6 @@ You can start/stop/restart and view the error logs of nginx and php-fpm services
 _For Windows 10, you need to [add route: route add 172.17.0.0 MASK 255.255.0.0 10.0.75.2](https://forums.docker.com/t/connecting-to-containers-ip-address/18817/13) manually before using one of the following ways to get internal IP:_
 - Looking into the output of `docker logs <container-id>`:
 - Using [docker inspect](https://docs.docker.com/engine/reference/commandline/inspect/parent-command) command
-- Checking the ~/readme.txt file by using [Web-Based SSH Terminal](http://127.0.0.1:2222)
 ___
  
 
